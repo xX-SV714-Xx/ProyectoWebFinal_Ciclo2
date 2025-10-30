@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">Detalle de Especificaciones</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-5">
+
+        <h1 class="mb-4" th:text="${titulo}">Especificaciones Técnicas</h1>
+        <hr>
+
+        <div class="card shadow mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Auto Asociado</h5>
+            </div>
+            <div class="card-body">
+                <div th:if="${auto != null}">
+                    <p><strong>Marca:</strong> <span th:text="${auto.marca.nombre}"></span></p>
+                    <p><strong>Modelo:</strong> <span th:text="${auto.modelo}"></span></p>
+                    <p><strong>Matrícula:</strong> <span th:text="${auto.matricula}"></span></p>
+                    <p><strong>Año:</strong> <span th:text="${auto.aniodecreacion}"></span></p>
+                    <p><strong>Precio:</strong> <span th:text="'S/ ' + ${#numbers.formatDecimal(auto.precio, 0, 'COMMA', 2, 'POINT')}"></span></p>
+                </div>
+                <div th:unless="${auto != null}">
+                    <p class="text-danger">Error: No se pudo cargar la información del auto.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card shadow">
+            <div class="card-header bg-secondary text-white">
+                <h5 class="mb-0">Detalles Técnicos</h5>
+            </div>
+            <div class="card-body">
+                
+                <div th:if="${especificacion != null}">
+                    <table class="table table-bordered table-sm">
+                        <tbody>
+                            <tr>
+                                <th scope="row" class="w-50">Velocidad Punta</th>
+                                <td><span th:text="${especificacion.velocidadPunta}"></span> km/h</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Caballos de Fuerza (CV)</th>
+                                <td><span th:text="${especificacion.caballosDeFuerza}"></span> CV</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tipo de Motor</th>
+                                <td><span th:text="${especificacion.tipoMotor}"></span></td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Capacidad de Asientos</th>
+                                <td><span th:text="${especificacion.capacidadAsientos}"></span> asientos</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Color</th>
+                                <td><span th:text="${especificacion.color}"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div th:unless="${especificacion != null}">
+                    <p class="text-warning">Este vehículo no tiene especificaciones técnicas registradas.</p>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="mt-4">
+            <a th:href="@{/autos/listado}" class="btn btn-info">
+                <i class="fas fa-arrow-left"></i> Volver al Listado de Autos
+            </a>
+            </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

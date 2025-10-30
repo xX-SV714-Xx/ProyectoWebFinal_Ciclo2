@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${titulo}"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container mt-5">
+
+		<h1 th:text="${titulo}">Registrar Nueva Venta</h1>
+		<hr>
+
+		<form th:action="@{/ventas/guardar}" th:object="${venta}" method="post">
+
+			<input type="hidden" th:field="*{idVenta}"> 
+
+			<div class="form-group">
+				<label for="auto">Seleccionar Vehículo (Auto)</label>
+				<select class="form-control" th:field="*{auto}" id="auto" required>
+					<option value="">-- Seleccione un Auto --</option>
+					<option th:each="a : ${listaAutos}" 
+					        th:value="${a.id}" 
+					        th:text="${a.modelo} + ' (' + ${a.matricula} + ')'"></option>
+				</select>
+			</div>
+
+			<div class="form-group">
+			    <label for="cliente">Seleccionar Cliente (Usuario)</label>
+			    <select class="form-control" th:field="*{cliente}" id="cliente" required>
+			        <option value="">-- Seleccione un Cliente --</option>
+			        <option th:each="c : ${listaClientes}" 
+			                th:value="${c.id_cliente}" th:text="${c.nombres} + ' ' + ${c.apellidos}"></option>
+			    </select>
+			</div>
+			
+			<div class="form-group">
+				<label for="fechaVenta">Fecha de la Venta</label>
+				<input class="form-control" type="date" th:field="*{fechaVenta}" id="fechaVenta" required>
+			</div>
+			
+			<div class="form-group">
+				<label for="precioFinal">Precio Final (S/)</label>
+				<input class="form-control" type="number" step="0.01" th:field="*{precioFinal}" id="precioFinal" placeholder="Ej: 35000.00" required>
+			</div>
+            
+            <div class="form-group">
+				<label for="estado">Estado de Venta</label>
+				<input class="form-control" type="text" th:field="*{estado}" id="estado" placeholder="Ej: Pendiente / Finalizada" required>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Registrar Venta</button>
+			<a th:href="@{/ventas/listado}" class="btn btn-secondary">Cancelar</a>
+			
+		</form>
+	</div>
+</body>
+
+</html>

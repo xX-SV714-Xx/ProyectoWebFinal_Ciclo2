@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${titulo}"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container mt-5">
+
+		<h1 th:text="${titulo}">Registrar Vehículo</h1>
+		<hr>
+
+		<form th:action="@{/autos/guardar}" th:object="${auto}" method="post">
+
+			<div class="form-row">
+				<div class="form-group col-md-4">
+					<label for="matricula">Matrícula</label>
+					<input class="form-control" type="text" th:field="*{matricula}" id="matricula" placeholder="Ej: ABC123" required>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="aniodecreacion">Año de Creación</label>
+					<input class="form-control" type="number" th:field="*{aniodecreacion}" id="aniodecreacion" required>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="precio">Precio</label>
+					<input class="form-control" type="number" step="0.01" th:field="*{precio}" id="precio" required>
+				</div>
+			</div>
+			<div class="form-row">
+			    <div class="form-group col-md-6">
+			        <label for="marca">Marca del Auto</label>
+			        <select class="form-control" th:field="*{marca}" id="marca" required>
+			            <option value="">-- Seleccione una Marca --</option>
+			            <option th:each="marca : ${listaMarcas}" 
+			                    th:value="${marca.id_marca}"
+			                    th:text="${marca.nombre}"> 
+			                    </option>
+			        </select>
+			    </div>
+			    
+			    <div class="form-group col-md-6">
+			        <label for="modelo">Modelo</label>
+			        <input type="text" class="form-control" th:field="*{modelo}" id="modelo" placeholder="Ej: Q5" required>
+			    </div>
+			</div>
+
+			<hr>
+			<h5>Especificaciones Técnicas</h5>
+			<hr>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="velocidad">Velocidad Punta (km/h)</label>
+					<input type="number" class="form-control" th:field="*{especificacion.velocidadPunta}" id="velocidad" required>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="caballos">Caballos de Fuerza (CV)</label>
+					<input type="number" class="form-control" th:field="*{especificacion.caballosDeFuerza}" id="caballos" required>
+				</div>
+			</div>
+
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="capacidad">Capacidad de Asientos</label>
+					<input type="number" class="form-control" th:field="*{especificacion.capacidadAsientos}" id="capacidad" required>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="color">Color</label>
+					<input type="text" class="form-control" th:field="*{especificacion.color}" id="color" placeholder="Ej: Rojo">
+				</div>
+			</div>
+
+			<div class="form-group">
+				<label for="motor">Tipo de Motor</label>
+				<input type="text" class="form-control" th:field="*{especificacion.tipoMotor}" id="motor" placeholder="Ej: Gasolina V6">
+			</div>
+            
+            <hr>
+            
+			<button type="submit" class="btn btn-primary">Guardar Auto</button>
+			<a th:href="@{/autos/listado}" class="btn btn-secondary">Cancelar</a>
+			
+		</form>
+	</div>
+</body>
+</html>

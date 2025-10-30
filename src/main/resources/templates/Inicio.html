@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Gestión de Venta de Autos</title>
+    <!-- Bootstrap CSS v5.3.2 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        .card-management {
+            transition: transform 0.2s;
+        }
+
+        .card-management:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+        }
+        
+        /* Ajuste para que el contenido principal no se esconda bajo la navbar fija */
+        .content-wrapper {
+            padding-top: 80px; 
+            padding-bottom: 50px;
+            min-height: 85vh; /* Para empujar el footer hacia abajo */
+        }
+
+        /* Estilos del menú de navegación de AutoDrive (Para el sistema de gestión) */
+        .nav-link.active {
+            font-weight: bold;
+            color: #dc3545 !important; /* Color rojo de AutoDrive */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV BAR (Basada en AutoDrive, pero funcional para Thymeleaf) -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-danger" th:href="@{/}">
+                <i class="bi bi-car-front-fill me-2"></i>AutoDrive
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <!-- Enlaces al Front-end (Web pública, si existe) -->
+                    <li class="nav-item">
+                        <a class="nav-link active" th:href="@{/}"><i class="bi bi-house-door me-1"></i>Inicio (Dashboard)</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/autos/listado}"><i class="bi bi-gear me-1"></i>Inventario</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/clientes/listado}"><i class="bi bi-people me-1"></i>Clientes</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/ventas/listado}"><i class="bi bi-cart me-1"></i>Ventas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/marcas/listado}"><i class="bi bi-tags me-1"></i>Marcas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" th:href="@{/concesionarios/listado}"><i class="bi bi-shop me-1"></i>Concesionarios</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT - DASHBOARD DE GESTIÓN -->
+    <main id="main-content" class="content-wrapper">
+        <div class="container">
+            <h1 class="mb-4">Dashboard de Gestión</h1>
+            <p class="lead">Acceso rápido a la administración del sistema *SpeedMotors* de **AutoDrive**.</p>
+            
+            <hr class="mb-5"/>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+                
+                <!-- Módulo 1: Inventario de Autos -->
+                <div class="col">
+                    <div class="card card-management text-center h-100 shadow-sm border-success">
+                        <div class="card-body">
+                            <i class="bi bi-car-front-fill text-success" style="font-size: 2rem;"></i>
+                            <h5 class="card-title mt-2">Inventario de Autos</h5>
+                            <p class="card-text text-muted small">Gestión completa de vehículos y especificaciones.</p>
+                            <a th:href="@{/autos/listado}" class="btn btn-outline-success btn-sm mt-2">Ver Inventario</a>
+                            <a th:href="@{/autos/nuevo}" class="btn btn-success btn-sm mt-2">Nuevo Auto</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 2: Registro de Ventas -->
+                <div class="col">
+                    <div class="card card-management text-center h-100 shadow-sm border-primary">
+                        <div class="card-body">
+                            <i class="bi bi-currency-dollar text-primary" style="font-size: 2rem;"></i>
+                            <h5 class="card-title mt-2">Registro de Ventas</h5>
+                            <p class="card-text text-muted small">Historial y gestión de transacciones finalizadas.</p>
+                            <a th:href="@{/ventas/listado}" class="btn btn-outline-primary btn-sm mt-2">Ver Historial</a>
+                            <a th:href="@{/ventas/nueva}" class="btn btn-primary btn-sm mt-2">Registrar Venta</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 3: Gestión de Clientes -->
+                <div class="col">
+                    <div class="card card-management text-center h-100 shadow-sm border-warning">
+                        <div class="card-body">
+                            <i class="bi bi-person-circle text-warning" style="font-size: 2rem;"></i>
+                            <h5 class="card-title mt-2">Gestión de Clientes</h5>
+                            <p class="card-text text-muted small">Base de datos de usuarios y contactos.</p>
+                            <a th:href="@{/clientes/listado}" class="btn btn-outline-warning btn-sm mt-2">Ver Clientes</a>
+                            <a th:href="@{/clientes/nuevo}" class="btn btn-warning btn-sm mt-2">Registrar Cliente</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 4: Marcas -->
+                <div class="col">
+                    <div class="card card-management text-center h-100 shadow-sm border-info">
+                        <div class="card-body">
+                            <i class="bi bi-tags text-info" style="font-size: 2rem;"></i>
+                            <h5 class="card-title mt-2">Registro de Marcas</h5>
+                            <p class="card-text text-muted small">Administración de marcas de vehículos.</p>
+                            <a th:href="@{/marcas/listado}" class="btn btn-outline-info btn-sm mt-2">Ver Marcas</a>
+                            <a th:href="@{/marcas/nuevo}" class="btn btn-info btn-sm mt-2">Registrar Marca</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Módulo 5: Concesionarios -->
+                <div class="col">
+                    <div class="card card-management text-center h-100 shadow-sm border-secondary">
+                        <div class="card-body">
+                            <i class="bi bi-shop text-secondary" style="font-size: 2rem;"></i>
+                            <h5 class="card-title mt-2">Gestión de Concesionarios</h5>
+                            <p class="card-text text-muted small">Horario y lugar del concesionario.</p>
+                            <a th:href="@{/concesionarios/listado}" class="btn btn-outline-secondary btn-sm mt-2">Ver Concesionarios</a>
+                            <a th:href="@{/concesionarios/nueva}" class="btn btn-secondary btn-sm mt-2">Registrar Concesionario</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER (Basado en AutoDrive) -->
+    <footer class="bg-dark text-white py-4 mt-5">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 AutoDrive. Todos los derechos reservados.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-white me-3"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-white"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>	

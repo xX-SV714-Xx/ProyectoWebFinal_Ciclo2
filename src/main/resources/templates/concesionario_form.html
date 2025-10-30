@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${titulo}"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container mt-5">
+
+		<h1 th:text="${titulo}">Registrar Nuevo Concesionario</h1>
+		<hr>
+
+		<form th:action="@{/concesionarios/guardar}" th:object="${concesionario}" method="post">
+
+			<input type="hidden" th:field="*{id_concesionario}"> 
+
+			<div class="form-group">
+				<label for="distrito">Distrito (Ubicación de la Sucursal)</label>
+				<input class="form-control" type="text" th:field="*{distrito}" id="distrito" placeholder="Ej: Miraflores" required>
+			</div>
+
+            <div class="form-group">
+				<label for="direccion">Dirección Completa</label>
+				<input class="form-control" type="text" th:field="*{direccion}" id="direccion" placeholder="Ej: Av. Principal 500" required>
+			</div>
+            
+            <div class="form-group">
+                <label for="marca">Marca de Auto Asignada</label>
+                <select th:field="*{marca}" class="form-control" id="marca" required>
+                    <option value="">-- Seleccionar Marca --</option> 
+                    
+                    <option th:each="m : ${listaMarcas}" 
+                            th:value="${m.id_marca}" 
+                            th:text="${m.nombre}"></option>
+                </select>
+            </div>
+
+			<div class="form-group">
+				<label for="aforo">Aforo Máximo (Personas)</label>
+				<input class="form-control" type="number" th:field="*{aforo}" id="aforo" placeholder="Ej: 50" required>
+			</div>
+			
+			<div class="form-group">
+				<label for="capacidad">Capacidad Máxima de Autos</label>
+				<input class="form-control" type="number" th:field="*{capacidad}" id="capacidad" placeholder="Ej: 20" required>
+			</div>
+            
+			<button type="submit" class="btn btn-primary">Guardar Concesionario</button>
+			<a th:href="@{/concesionarios/listado}" class="btn btn-secondary">Cancelar</a>
+			
+		</form>
+	</div>
+</body>
+
+</html>

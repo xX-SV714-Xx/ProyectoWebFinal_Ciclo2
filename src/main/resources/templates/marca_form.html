@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="${titulo}"></title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div class="container mt-5">
+
+		<h1 th:text="${titulo}">Registrar Marca</h1>
+		<hr>
+
+		<form th:action="@{/marcas/guardar}" th:object="${marca}" method="post">
+
+			<input type="hidden" th:field="*{id_marca}"> 
+
+			<div class="form-group">
+				<label for="nombre">Nombre de la Marca</label>
+				<input class="form-control" type="text" th:field="*{nombre}" id="nombre" placeholder="Ej: Audi" required>
+			</div>
+
+			<div class="form-group">
+				<label for="pais">País de Procedencia</label>
+				<input class="form-control" type="text" th:field="*{pais_de_proveniencia}" id="pais" placeholder="Ej: Alemania" required>
+			</div>
+			
+			<button type="submit" class="btn btn-primary">Guardar Marca</button>
+			<a th:href="@{/marcas/listado}" class="btn btn-secondary">Cancelar</a>
+			
+		</form>
+	</div>
+</body>
+
+</html>
